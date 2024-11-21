@@ -4,13 +4,11 @@ using EFCore.AuditExtensions.Common.EfCore;
 using EFCore.AuditExtensions.Common.Extensions;
 using EFCore.AuditExtensions.Common.Migrations.CSharp.Operations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Update;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.Extensions.Logging;
 
@@ -25,10 +23,11 @@ public class MigrationsModelDiffer : Microsoft.EntityFrameworkCore.Migrations.In
     public MigrationsModelDiffer(
         IRelationalTypeMappingSource typeMappingSource,
         IMigrationsAnnotationProvider migrationsAnnotations,
+        IRelationalAnnotationProvider relationalAnnotationProvider,
         IRowIdentityMapFactory rowIdentityMapFactory,
         CommandBatchPreparerDependencies commandBatchPreparerDependencies,
         ILogger<MigrationsModelDiffer> logger)
-        : base(typeMappingSource, migrationsAnnotations, rowIdentityMapFactory, commandBatchPreparerDependencies)
+        : base(typeMappingSource, migrationsAnnotations, relationalAnnotationProvider, rowIdentityMapFactory, commandBatchPreparerDependencies)
     {
         _logger = logger;
     }
